@@ -2,7 +2,7 @@
  * @Author: https://github.com/haohaoalt
  * @Date: 2023-12-19 16:20:56
  * @LastEditors: hayden haohaoalt@163.com
- * @LastEditTime: 2023-12-19 17:01:45
+ * @LastEditTime: 2023-12-19 17:19:10
  * @FilePath: /slam_nav/README.md
  * @Description: 
  * Copyright (c) 2023 by haohaoalt@163.com, All Rights Reserved. 
@@ -116,3 +116,5 @@ source devel/setup.bash
 roslaunch akm_pnc mbf_ackermann.launch
   
   #step4 在rviz中选择要导航目标点
+慢速控制：
+rosrun turtlebot3_teleop turtlebot3_teleop_key
