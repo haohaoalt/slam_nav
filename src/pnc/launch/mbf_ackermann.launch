@@ -1,0 +1,82 @@
+<launch>
+    <!-- Depth Image to Laser Scan Node -->
+    <node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" args="">
+
+        <remap from="image"       to="/camera/depth/image_raw"/> <!-- change here for your camera depth topic name. Default: "/camera/depth/image_raw" -->
+
+        <remap from="camera_info" to="/camera/depth/camera_info"/>
+        <!-- the remap for camera_info by default uses the same path as the one given to the image topic. Default: "<path_to_image_topic>/camera_info>" -->
+
+        <!-- PARAMETERS: -->
+        <!-- These are the default values. -->
+        <param name="scan_height"     type="int"    value="1"/> <!-- default: 1 pixel. Number of pixel rows used to generate laser scan. -->
+        <param name="scan_time"       type="double" value="0.033"/> <!-- default:0.033, 30 FPS . Time between scans. -->
+        <param name="range_min"       type="double" value="0.55"/> <!--default:0.45m. Ranges less than this are considered -Inf. -->
+        <param name="range_max"       type="double" value="20.0"/> <!--default: 10m. Ranges less than this are considered +Inf. -->
+        <param name="output_frame_id" type="str"    value="orb_cam_link"/> <!--default: camera_depth_frame. Frame id of the laser scan. -->
+
+    </node>
+    <!-- ORB_SLAM3 location Node-->
+<!--    <node pkg="akm_location" type="Akm_RGBD" name="RGBD" output="screen"-->
+<!--          args="$(find akm_location)/Vocabulary/ORBvoc.bin-->
+<!--          /home/xin/catkin_ws/vslam_ws/vslam_nav_test_ws/src/thirdparty/ORB_SLAM3_relocation_nav/Examples/RGB-D/akm_pure_location.yaml-->
+<!--           false-->
+<!--           true">-->
+<!--    </node>-->
+
+    <!-- Octomap Server Node -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+        <param name="resolution" value="0.1" />
+        <param name="frame_id" type="string" value="/map" />
+        <param name="sensor_model/max_range" value="5.0" />
+        <remap from="cloud_in" to="/ORB_SLAM2_PointMap_SegNetM/Point_Clouds" />
+        <param name="sensor_model/max_range" value="5000.0" />
+        <param name="latch" value="true" />
+        <param name="pointcloud_min_z" type="double" value="-1.5" />
+        <param name="pointcloud_max_z" type="double" value="10" />
+        <param name="occupancy_min_z" type="double" value="0.3" />
+        <param name="occupancy_max_z" type="double" value="0.8" />
+        <param name="height_map" type="bool" value="False" />
+        <param name="colored_map" value="true" />
+    </node>
+    <!-- move_base Node -->
+    <!-- Arguments -->
+    <arg name="cmd_vel_topic" default="/cmd_vel" />
+    <arg name="odom_topic" default="odom" />
+    <arg name="map" default="$(find akm_slam)/map/1219.yaml"/>
+    <arg name="localization_rviz" default="false"/>
+    <arg name="pnc_rviz" default="true"/>
+    <!-- 静态坐标转换节点  orb_cam_link -> ORB_SLAM3 -->
+    <node pkg="tf" type="static_transform_publisher" name="orb_cam_link" args="-0.320 0 -0.1 0 0 0 /orb_cam_link /ORB_SLAM3 100" />
+    <!-- 静态坐标转换节点  map -> odom -->
+    <node pkg="tf" type="static_transform_publisher" name="map" args="0 0 0.05 0 0 0 /map /odom 100" />
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map)"/>
+
+    <!-- move_base_flex -->
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" respawn="false" name="move_base_flex" output="screen">
+        <param name="SBPLLatticePlanner/primitive_filename" value="$(find akm_pnc)/param/xjureso005.mprim" />
+        <rosparam file="$(find akm_pnc)/param/costmap_ackermann_params.yaml" command="load" />
+        <rosparam file="$(find akm_pnc)/param/mbf_sbpl.yaml" command="load" />
+        <rosparam file="$(find akm_pnc)/param/sbpl_global_params.yaml" command="load" />
+        <rosparam file="$(find akm_pnc)/param/recovery_behavior_params.yaml" command="load" />
+        <rosparam file="$(find akm_pnc)/param/teb_ackermann.yaml" command="load" />
+        <rosparam file="$(find akm_pnc)/param/costmap_converter_params.yaml" command="load" />
+        <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+        <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <!-- action goal bridge -->
+    <node pkg="akm_pnc" type="akm_mbf_bridge" respawn="false" name="akm_mbf_bridge" />
+
+    <!-- state machine -->
+    <param name="/root_path" value="$(find akm_slam)" type="string"/>
+    <node pkg="akm_pnc" type="akm_state_machine" respawn="false" name="akm_state_machine" output="screen"/>
+
+    <!-- coverage_path_planner -->
+    <include file="$(find coverage_path_planner)/launch/path_planning.launch" />
+
+    <!-- rviz -->
+    <group if="$(arg pnc_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find akm_pnc)/rviz/mbf.rviz" />
+    </group>
+</launch>

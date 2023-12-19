@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<robot
+  name="akm" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find akm_simu)/urdf/ackermann.xacro"/>
+  <xacro:include filename="$(find akm_simu)/urdf/akm_ackermann_model.gazebo.xacro"/>
+  <xacro:include filename="$(find akm_simu)/urdf/common_properties.xacro"/>
+  <xacro:include filename="$(find akm_simu)/urdf/kinect_gazebo.xacro"/>
+
+  <xacro:property name="kinect_offset_x" value="0.320" />
+  <xacro:property name="kinect_offset_y" value="0.0" />
+  <xacro:property name="kinect_offset_z" value="0.1" />
+  <xacro:property name="M_PI" value="3.14159" />
+
+  <xacro:kinect_camera prefix="camera"/>
+  <joint name="kinect_frame_joint" type="fixed">
+    <origin xyz="${kinect_offset_x} ${kinect_offset_y} ${kinect_offset_z}" rpy="0 0 0" />
+    <parent link="ORB_SLAM3"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Body -->
+  <link
+    name="ORB_SLAM3">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="5" />
+      <inertia
+        ixx="0.041667"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.070833"
+        iyz="0.0"
+        izz="0.104167" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0.13 0 0.05"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.4 0.3 0.1" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+    <collision>
+      <origin
+        xyz="0.13 0 0.05"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.4 0.2 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Picture -->
+  <link
+    name="pic_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.4 0.3 0.001" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint
+    name="joint_pic"
+    type="fixed">
+    <origin
+      xyz="0.13 0.0 0.1"
+      rpy="0 0 0" />
+    <parent
+      link="ORB_SLAM3" />
+    <child
+      link="pic_link" />
+  </joint>
+
+  <!-- Wheel -->
+  <link name="left_steering_hinge">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.5" />
+      <inertia ixx="1.35E-05" ixy="0" ixz="0" iyy="2.5E-05" iyz="0" izz="1.35E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.005" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.005" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_steering_hinge_joint" type="revolute">
+    <origin xyz="0.26 0.125 0" rpy="0 0 0" />
+    <parent link="ORB_SLAM3" />
+    <child link="left_steering_hinge" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.6" upper="0.6" effort="5.0" velocity="1000.0"/>
+  </joint>
+  <xacro:steering_hinge_transmission name="left_steering_hinge" />
+
+  <link name="left_front_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="2" />
+      <inertia ixx="0.002867" ixy="0" ixz="0" iyy="0.0049" iyz="0" izz="0.002867" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_front_wheel_joint" type="continuous">
+    <origin xyz="0 0.05 0" rpy="0 0 0" />
+    <parent link="left_steering_hinge" />
+    <child link="left_front_wheel" />
+    <axis xyz="0 1 0" />
+    <limit effort="0" velocity="1000" />
+  </joint>
+  <xacro:wheel_transmission name="left_front_wheel" />
+
+  <link name="right_steering_hinge">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.5" />
+      <inertia ixx="1.35E-05" ixy="0" ixz="0" iyy="2.5E-05" iyz="0" izz="1.35E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.005" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.005" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_steering_hinge_joint" type="revolute">
+    <origin xyz="0.26 -0.125 0" rpy="0 0 0" />
+    <parent link="ORB_SLAM3" />
+    <child link="right_steering_hinge" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.6" upper="0.6" effort="5.0" velocity="1000.0"/>
+  </joint>
+  <xacro:steering_hinge_transmission name="right_steering_hinge" />
+
+  <link name="right_front_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="2" />
+      <inertia ixx="0.002867" ixy="0" ixz="0" iyy="0.0049" iyz="0" izz="0.002867" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_front_wheel_joint" type="continuous">
+    <origin xyz="0 -0.05 0" rpy="0 0 0" />
+    <parent link="right_steering_hinge" />
+    <child link="right_front_wheel" />
+    <axis xyz="0 1 0" />
+    <limit effort="0" velocity="1000" />
+  </joint>
+  <xacro:wheel_transmission name="right_front_wheel" />
+
+  <link name="left_rear_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="2" />
+      <inertia ixx="0.002867" ixy="0" ixz="0" iyy="0.0049" iyz="0" izz="0.002867" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_rear_wheel_joint" type="continuous">
+    <origin xyz="0 0.175 0" rpy="0 0 0" />
+    <parent link="ORB_SLAM3" />
+    <child link="left_rear_wheel" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="1000" />
+  </joint>
+  <xacro:wheel_transmission name="left_rear_wheel" />
+
+  <link name="right_rear_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="2" />
+      <inertia ixx="0.002867" ixy="0" ixz="0" iyy="0.0049" iyz="0" izz="0.002867" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.07" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_rear_wheel_joint" type="continuous">
+    <origin xyz="0 -0.175 0" rpy="0 0 0" />
+    <parent link="ORB_SLAM3" />
+    <child link="right_rear_wheel" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="1000" />
+  </joint>
+  <xacro:wheel_transmission name="right_rear_wheel" />
+
+  <!-- Imu -->
+  <link name="imu_link"/>
+  <joint
+    name="joint_imu"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="ORB_SLAM3" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+
+  <!-- Camera -->
+<!--  &lt;!&ndash; Camera &ndash;&gt;-->
+<!--  <link name="camera_front_base">-->
+<!--    <visual>-->
+<!--      <origin-->
+<!--              xyz="0 0 0"-->
+<!--              rpy="0 0 0" />-->
+<!--      <geometry>-->
+<!--        <box size="0.02 0.08 0.03" />-->
+<!--      </geometry>-->
+<!--      <material name="red" />-->
+<!--    </visual>-->
+<!--  </link>-->
+<!--  <joint name="camera_front_base_joint" type="fixed">-->
+<!--    <axis xyz="0 0 0" />-->
+<!--    <origin xyz="0.320 0 0.1" rpy="0 0 0"/>-->
+<!--    <parent link="ORB_SLAM3"/>-->
+<!--    <child link="camera_front_base"/>-->
+<!--  </joint>-->
+<!--  <link name="camera_front_link" />-->
+<!--  <joint name="camera_front_joint" type="fixed">-->
+<!--    <axis xyz="0 0 0" />-->
+<!--    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>-->
+<!--    <parent link="camera_front_base"/>-->
+<!--    <child link="camera_front_link"/>-->
+<!--  </joint>-->
+</robot>

@@ -1,0 +1,13 @@
+从您提供的 URDF 中可以看出，camera_front_link 与 base_link 之间的转换关系是通过两个链接之间的关节（camera_front_base_joint）定义的。在这个关节定义中，可以找到以下信息：
+
+camera_front_base_joint 的原点定义为 <origin xyz="0.320 0 0.1" rpy="0 0 0"/>，这表示 camera_front_base_joint 的原点相对于 base_link 的原点在X轴上偏移了0.32米，而在Z轴上偏移了0.1米。
+
+camera_front_base_joint 的旋转角度 rpy 设置为零，表示没有绕X、Y或Z轴的旋转。
+
+因此，根据上述信息，可以得出 camera_front_link 相对于 base_link 的转换关系如下：
+
+在X轴上偏移：0.32米
+在Y轴上偏移：0米
+在Z轴上偏移：0.1米
+没有绕X、Y或Z轴的旋转。
+这表示 camera_front_link 相对于 base_link 向前偏移了0.32米，向上偏移了0.1米，没有旋转。

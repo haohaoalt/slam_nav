@@ -1,0 +1,37 @@
+<!-- 
+  Example launch file for octomap_server mapping: 
+  Listens to incoming PointCloud2 data and incrementally builds an octomap. 
+  The data is sent out in different representations. 
+
+  Copy this file into your workspace and adjust as needed, see
+  www.ros.org/wiki/octomap_server for details  
+-->
+<launch>
+	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+		<param name="resolution" value="0.1" />
+		
+		<param name="frame_id" type="string" value="/map" />
+		
+		<param name="sensor_model/max_range" value="5.0" />
+		
+		<remap from="cloud_in" to="/ORB_SLAM2_PointMap_SegNetM/Point_Clouds" />
+		<!--remap from="cloud_in" to="/ORB_SLAM2_PointMap_SegNetM/Point_Clouds" /-->
+	        <param name="sensor_model/max_range" value="5000.0" />
+	        <param name="latch" value="true" />
+
+
+		<!--pointcloud_min_z pointcloud_max_z 这两个变量控制栅格图的起始  -1.5 从地面以下1.5米开始有八叉树
+		不设为复制可能栅格图部分显示不了白色-->
+		<param name="pointcloud_min_z" type="double" value="-1.5" />
+		<param name="pointcloud_max_z" type="double" value="10" />
+		<!-- occupancy_min_z  occupancy_max_z 这两个变量反应在栅格地图上
+		min_z = 0.0 表示地面以上0.0米才会显示被占据
+		max_z = 1.5 说明 1.5米以上就不显示被占据了 滤除顶部建筑的意思-->
+		<param name="occupancy_min_z" type="double" value="0.3" />
+		<!-- 控制不建立房顶以及上面建筑 导致栅格图都被占据-->
+		<param name="occupancy_max_z" type="double" value="0.8" />
+		<param name="height_map" type="bool" value="False" />
+		<param name="colored_map" value="true" />
+	
+	</node>
+</launch>

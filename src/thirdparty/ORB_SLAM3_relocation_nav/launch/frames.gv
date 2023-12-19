@@ -1,0 +1,8 @@
+digraph G {
+"map" -> "pointCloud"[label="Broadcaster: /map\nAverage rate: 10.191 Hz\nMost recent transform: 1681393148.176 ( -0.035 sec old)\nBuffer length: 4.906 sec\n"];
+"map" -> "odom"[label="Broadcaster: /RGBD\nAverage rate: 10.217 Hz\nMost recent transform: 1681393148.086 ( 0.054 sec old)\nBuffer length: 4.894 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1681393148.140"[ shape=plaintext ] ;
+ }->"map";
+}

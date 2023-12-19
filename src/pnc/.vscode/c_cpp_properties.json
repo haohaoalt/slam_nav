@@ -1,0 +1,55 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/lzh/VINS/akm_nav/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/lzh/VINS/akm_nav/src/pnc/include/**",
+        "/home/lzh/VINS/akm_nav/src/simu/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/amcl/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/assisted_teleop/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/base_local_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/carrot_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/clear_costmap_recovery/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/costmap_2d/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/costmap_converter/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/coverage_path_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/depthimage_to_laserscan/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/dwa_local_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/global_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/goal_passer/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/map_server/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_abstract_core/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_abstract_nav/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_costmap_core/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_costmap_nav/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_simple_nav/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/move_base_flex/mbf_utility/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/move_base/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/move_slow_and_clear/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/nav_core/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/navfn/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/octomap_server/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/pose_base_controller/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/pose_follower/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/rotate_recovery/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/sbpl_lattice_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/sbpl_recovery/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/teb_local_planner/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation_experimental/twist_recovery/include/**",
+        "/home/lzh/VINS/akm_nav/src/thirdparty/navigation/voxel_grid/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,28 @@
+<launch>
+    <!-- ORB_SLAM3 location Node-->
+<!--        <node pkg="akm_location" type="Akm_RGBD" name="RGBD" output="screen"-->
+<!--              args="$(find akm_location)/Vocabulary/ORBvoc.bin-->
+<!--              /home/xin/catkin_ws/vslam_ws/vslam_nav_test_ws/src/thirdparty/ORB_SLAM3_relocation_nav/Examples/RGB-D/akm_slam.yaml-->
+<!--               false-->
+<!--               true">-->
+<!--        </node>-->
+
+    <!-- Octomap Server Node -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+        <param name="resolution" value="0.05" />
+        <param name="frame_id" type="string" value="/orb_cam_link" />
+        <param name="sensor_model/max_range" value="5.0" />
+        <remap from="cloud_in" to="/ORB_SLAM3/Point_Clouds" />
+        <param name="sensor_model/max_range" value="5000.0" />
+        <param name="latch" value="true" />
+        <param name="pointcloud_min_z" type="double" value="-1.5" />
+        <param name="pointcloud_max_z" type="double" value="10" />
+        <param name="occupancy_min_z" type="double" value="0.1" />
+        <param name="occupancy_max_z" type="double" value="2" />
+        <param name="height_map" type="bool" value="False" />
+        <param name="colored_map" value="true" />
+    </node>
+    <node pkg="tf" type="static_transform_publisher" name="orb_cam_link" args="0 0 0.15 0 0 0 /orb_cam_link /pointCloud 70" />
+    <!-- rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find akm_pnc)/rviz/grid.rviz" />
+</launch>
