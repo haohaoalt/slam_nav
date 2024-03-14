@@ -1,16 +1,8 @@
-<!--
- * @Author: https://github.com/haohaoalt
- * @Date: 2023-12-19 16:20:56
- * @LastEditors: hayden haohaoalt@163.com
- * @LastEditTime: 2023-12-19 17:19:10
- * @FilePath: /slam_nav/README.md
- * @Description: 
- * Copyright (c) 2023 by haohaoalt@163.com, All Rights Reserved. 
--->
 # slam_nav
 from akm_nav
 
 ## 01 Build and Install
+ubuntu18
 ```
 sudo apt-get install libsdl-image1.2-dev
 sudo apt-get install ros-melodic-move-base-msgs
@@ -26,6 +18,33 @@ sudo apt-get install ros-melodic-global-planner
 sudo apt-get install ros-melodic-teb-local-planner
 
 ```
+
+ubuntu20
+
+```
+sudo apt-get install libsdl-image1.2-dev
+sudo apt-get install ros-noetic-move-base-msgs
+sudo apt-get install ros-noetic-tf2-sensor-msgs
+sudo apt update && sudo apt install ros-noetic-dwa-local-planner
+sudo apt-get install ros-noetic-sbpl
+sudo apt-get install ros-noetic-driver-base
+sudo apt-get install ros-noetic-gazebo-ros-control
+sudo apt-get install ros-noetic-effort-controllers
+sudo apt-get install ros-noetic-joint-state-controller
+sudo apt-get install ros-noetic-ackermann-msgs
+sudo apt-get install ros-noetic-global-planner
+sudo apt-get install ros-noetic-teb-local-planner
+```
+also attention /home/hayden/slam_nav/src/simu/teleop/ackermann_teleop.py:
+if 18 use melodic
+`from Tkinter import Frame, Label, Tk`
+20 use noetic
+`from tkinter import Frame, Label, Tk`
+
+
+
+
+
 - models复制到指定目录;
 - 编译代码目录中thirdparty，先删除build ./build.sh
 - catkin_make
