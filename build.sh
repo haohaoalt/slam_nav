@@ -1,9 +1,11 @@
 #!/bin/bash
 
+
+# sudo apt update
 # sudo apt-get install libsdl-image1.2-dev
 # sudo apt-get install ros-noetic-move-base-msgs
 # sudo apt-get install ros-noetic-tf2-sensor-msgs
-# sudo apt update
+# sudo apt-get install ros-noetic-octomap*
 # sudo apt install ros-noetic-dwa-local-planner
 # sudo apt-get install ros-noetic-sbpl
 # sudo apt-get install ros-noetic-driver-base
@@ -14,6 +16,22 @@
 # sudo apt-get install ros-noetic-global-planner
 # sudo apt-get install ros-noetic-teb-local-planner
 # sudo apt-get install ros-noetic-octomap-ros
+
+
+# sudo apt update
+# sudo apt-get install libsdl-image1.2-dev
+# sudo apt-get install ros-melodic-move-base-msgs
+# sudo apt-get install ros-melodic-tf2-sensor-msgs
+# sudo apt-get install ros-melodic-octomap*
+# sudo apt install ros-melodic-dwa-local-planner
+# sudo apt-get install ros-melodic-sbpl
+# sudo apt-get install ros-melodic-driver-base
+# sudo apt-get install ros-melodic-gazebo-ros-control
+# sudo apt-get install ros-melodic-effort-controllers
+# sudo apt-get install ros-melodic-joint-state-controller
+# sudo apt-get install ros-melodic-ackermann-msgs
+# sudo apt-get install ros-melodic-global-planner
+# sudo apt-get install ros-melodic-teb-local-planner
 
 CLEAN_PREVIOUS_BUILD=false
 

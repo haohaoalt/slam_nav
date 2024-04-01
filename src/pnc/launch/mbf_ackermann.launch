@@ -43,7 +43,7 @@
     <!-- Arguments -->
     <arg name="cmd_vel_topic" default="/cmd_vel" />
     <arg name="odom_topic" default="odom" />
-    <arg name="map" default="$(find akm_slam)/map/1219.yaml"/>
+    <arg name="map" default="$(find akm_slam)/map/akm.yaml"/>
     <arg name="localization_rviz" default="false"/>
     <arg name="pnc_rviz" default="true"/>
     <!-- 静态坐标转换节点  orb_cam_link -> ORB_SLAM3 -->

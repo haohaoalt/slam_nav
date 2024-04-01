@@ -2,53 +2,18 @@
 from akm_nav
 
 ## 01 Build and Install
-ubuntu18
-```
-sudo apt-get install libsdl-image1.2-dev
-sudo apt-get install ros-melodic-move-base-msgs
-sudo apt-get install ros-melodic-tf2-sensor-msgs
-sudo apt update && sudo apt install ros-melodic-dwa-local-planner
-sudo apt-get install ros-melodic-sbpl
-sudo apt-get install ros-melodic-driver-base
-sudo apt-get install ros-melodic-gazebo-ros-control
-sudo apt-get install ros-melodic-effort-controllers
-sudo apt-get install ros-melodic-joint-state-controller
-sudo apt-get install ros-melodic-ackermann-msgs
-sudo apt-get install ros-melodic-global-planner
-sudo apt-get install ros-melodic-teb-local-planner
 
-```
-
-ubuntu20
-
-```
-sudo apt-get install libsdl-image1.2-dev
-sudo apt-get install ros-noetic-move-base-msgs
-sudo apt-get install ros-noetic-tf2-sensor-msgs
-sudo apt update && sudo apt install ros-noetic-dwa-local-planner
-sudo apt-get install ros-noetic-sbpl
-sudo apt-get install ros-noetic-driver-base
-sudo apt-get install ros-noetic-gazebo-ros-control
-sudo apt-get install ros-noetic-effort-controllers
-sudo apt-get install ros-noetic-joint-state-controller
-sudo apt-get install ros-noetic-ackermann-msgs
-sudo apt-get install ros-noetic-global-planner
-sudo apt-get install ros-noetic-teb-local-planner
-```
 also attention /home/hayden/slam_nav/src/simu/teleop/ackermann_teleop.py:
 if 18 use melodic
 `from Tkinter import Frame, Label, Tk`
 20 use noetic
 `from tkinter import Frame, Label, Tk`
 
-
-
-
-
-- models复制到指定目录;
-- 编译代码目录中thirdparty，先删除build ./build.sh
-- catkin_make
-
+```
+./build.sh
+./build.sh -c   #清理build文件后编译
+catkin_make
+```
 
 ## 02 运行
 
