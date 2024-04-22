@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 # sudo apt update
 # sudo apt-get install libsdl-image1.2-dev
 # sudo apt-get install ros-noetic-move-base-msgs
@@ -16,8 +14,6 @@
 # sudo apt-get install ros-noetic-global-planner
 # sudo apt-get install ros-noetic-teb-local-planner
 # sudo apt-get install ros-noetic-octomap-ros
-
-
 # sudo apt update
 # sudo apt-get install libsdl-image1.2-dev
 # sudo apt-get install ros-melodic-move-base-msgs

@@ -1,5 +1,9 @@
 **/build/*
 **/devel/*
-src/thirdparty/ORB_SLAM3_relocation_nav/Examples/ROS/akm_location/Vocabulary/ORBvoc.txt
-src/thirdparty/ORB_SLAM3_relocation_nav/VSLAMRGBD_Loop.pcd
-src/thirdparty/ORB_SLAM3_relocation_nav/VSLAMRGBD.pcd
+**/lib/*
+**/*.txt
+.vscode/*
+**/*.osa
+**/*.pcd
+
+

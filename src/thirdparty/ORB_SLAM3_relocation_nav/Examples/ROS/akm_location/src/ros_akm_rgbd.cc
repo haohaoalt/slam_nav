@@ -39,8 +39,7 @@
 #include <message_filters/time_synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 
-#include<opencv2/core/core.hpp>
-#include <tf/transform_broadcaster.h>
+#include <opencv2/core/core.hpp>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Pose.h>
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
@@ -97,7 +96,7 @@ sensor_msgs::PointCloud2 mappoint_to_pointcloud(std::vector<ORB_SLAM3::MapPoint*
     sensor_msgs::PointCloud2 cloud;
 
     cloud.header.stamp = msg_time;
-    cloud.header.frame_id = "/odom";
+    cloud.header.frame_id = "odom";
     cloud.height = 1;
     cloud.width = map_points.size();
     cloud.is_bigendian = false;
@@ -147,7 +146,7 @@ void publish_tracking_img(cv::Mat image, ros::Time msg_time)
 
     header.stamp = msg_time;
 
-    header.frame_id = "/odom";
+    header.frame_id = "odom";
 
     const sensor_msgs::ImagePtr rendered_image_msg = cv_bridge::CvImage(header, "bgr8", image).toImageMsg();
 
@@ -283,16 +282,16 @@ void ImageGrabber::GrabRGBD(const sensor_msgs::ImageConstPtr& msgRGB,const senso
 
         orb_slam.setOrigin(tf::Vector3(Pose_trans[2], -Pose_trans[0], -Pose_trans[1]));
         orb_slam.setRotation(tf::Quaternion(q.z(), -q.x(), -q.y(), q.w()));
-        orb_slam_broadcaster->sendTransform(tf::StampedTransform(orb_slam, ros::Time::now(), "/odom", "/orb_cam_link"));
+        orb_slam_broadcaster->sendTransform(tf::StampedTransform(orb_slam, ros::Time::now(), "odom", "orb_cam_link"));
 
         Cam_Pose.header.stamp =ros::Time::now();
         //Cam_Pose.header.seq = msgRGB->header.seq;
-        Cam_Pose.header.frame_id = "/odom";
+        Cam_Pose.header.frame_id = "odom";
         tf::pointTFToMsg(orb_slam.getOrigin(), Cam_Pose.pose.position);
         tf::quaternionTFToMsg(orb_slam.getRotation(), Cam_Pose.pose.orientation);
 
         Cam_odom.header.stamp = ros::Time::now();
-        Cam_odom.header.frame_id = "/odom";
+        Cam_odom.header.frame_id = "odom";
         tf::pointTFToMsg(orb_slam.getOrigin(), Cam_odom.pose.pose.position);
         tf::quaternionTFToMsg(orb_slam.getRotation(), Cam_odom.pose.pose.orientation);
         Cam_odom.pose.covariance = {0.01, 0, 0, 0, 0, 0,
@@ -306,7 +305,7 @@ void ImageGrabber::GrabRGBD(const sensor_msgs::ImageConstPtr& msgRGB,const senso
         std_msgs::Header header ;
         header.stamp =msgRGB->header.stamp;
         header.seq = msgRGB->header.seq;
-        header.frame_id="/odom";
+        header.frame_id="哦的噢买";
         camerapath.header =header;
         camerapath.poses.push_back(Cam_Pose);
         pub_camerapath.publish(camerapath);  //相机轨迹
