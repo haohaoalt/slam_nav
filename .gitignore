@@ -5,5 +5,6 @@
 .vscode/*
 **/*.osa
 **/*.pcd
+src/slam/path/*
 
 
