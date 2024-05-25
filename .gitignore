@@ -6,5 +6,6 @@
 **/*.osa
 **/*.pcd
 src/slam/path/*
+**.so
 
 

@@ -169,6 +169,7 @@ namespace ORB_SLAM3 {
 
     pcl::PointCloud< PointCloudMapping::PointT >::Ptr PointCloudMapping::generatePointCloud(KeyFrame *kf,const cv::Mat& imRGB, const cv::Mat& imD, const cv::Mat& pose)
     {
+        cout << "generatePointCloud" << endl;
         std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
         PointCloud::Ptr current(new PointCloud);
         PointCloud::Ptr loop_points(new PointCloud);
@@ -183,9 +184,9 @@ namespace ORB_SLAM3 {
                 p.z = d;
                 p.x = ( u - mCx) * p.z / mFx;
                 p.y = ( v - mCy) * p.z / mFy;
-                p.b = imRGB.ptr<uchar>(v)[u*3];
+                p.r = imRGB.ptr<uchar>(v)[u*3];
                 p.g = imRGB.ptr<uchar>(v)[u*3+1];
-                p.r = imRGB.ptr<uchar>(v)[u*3+2];
+                p.b = imRGB.ptr<uchar>(v)[u*3+2];
                 current->points.push_back(p);
                 loop_points->points.push_back(p);
             }
@@ -262,7 +263,7 @@ namespace ORB_SLAM3 {
                 loopcount++;
                 string save_path = "./VSLAMRGBD_Loop.pcd";
                 pcl::io::savePCDFile(save_path, *mPointCloud);
-                cout << "save pcd files to :  " << save_path << endl;
+                cout << "updatecloud() save pcd files to :  " << save_path << endl;
             }
         }
     }
